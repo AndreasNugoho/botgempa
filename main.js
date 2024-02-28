@@ -22,8 +22,14 @@ gempabot.onText(sayHi, (callback) => {
     gempabot.sendMessage(callback.from.id,"Hallo Juga!!")
 })
 
-gempabot.onText(gempa, (callback) => {
-    gempabot.sendMessage(callback.from.id,"Ini Berita Gempa")    
+gempabot.onText(gempa, async(callback) => {
+    const BMKG_ENDPOINT = "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json"
+
+    const apiCall = await fetch(BMKG_ENDPOINT)
+    const response = await apiCall.json()
+    console.log(response)
+
+    gempabot.sendMessage(callback.from.id, "Ini Berita Gempa")    
 })
 
 // console.log('bot ready! ')
