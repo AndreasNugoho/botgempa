@@ -26,10 +26,24 @@ gempabot.onText(gempa, async(callback) => {
     const BMKG_ENDPOINT = "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json"
 
     const apiCall = await fetch(BMKG_ENDPOINT)
-    const response = await apiCall.json()
-    console.log(response)
+    const {
+        Infogempa:
+        {
+            gempa: {
+                Jam, Magnitude,Tanggal,Wilayah,Potensi,Kedalaman
+            }
+        }
+    } = await apiCall.json()
+    
+    const resultText = `
+Waktu: ${Tanggal} | ${Jam}
+Besaran: ${Magnitude} SR
+Wilayah: ${Wilayah} 
+Potensi: ${Potensi}
+Kedalaman: ${Kedalaman}
+    `
 
-    gempabot.sendMessage(callback.from.id, "Ini Berita Gempa")    
+    gempabot.sendMessage(callback.from.id, resultText)    
 })
 
 // console.log('bot ready! ')
