@@ -7,6 +7,9 @@ const options = {
 
 const gempabot = new TelegramBot(token, options)
 
+gempabot.on("message", (callback) => {
+    const id = callback.from.id
+    gempabot.sendMessage(id,"Iya")
+})
 
-
-console.log('bot ready! ')
+// console.log('bot ready! ')
