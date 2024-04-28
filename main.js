@@ -16,9 +16,22 @@ const prefix = "."
 
 const sayHi = new RegExp(`^${prefix}halo$`)
 const gempa = new RegExp(`^${prefix}gempa$`)
+const cuaca = new RegExp(`^${prefix}cuaca$`)
 
 
 gempabot.onText(sayHi, (callback) => {
+    gempabot.sendMessage(callback.from.id,"Hallo Juga!!")
+})
+
+gempabot.onText(cuaca, async(callback) => {
+    const BMKG_ENDPOINT_CUACA = "https://myip.api.akuari.my.id/myip"
+    
+    const apiCallCuaca = await fetch(BMKG_ENDPOINT_CUACA)
+
+    const response = await apiCallCuaca.json()
+
+    console.log(response)
+
     gempabot.sendMessage(callback.from.id,"Hallo Juga!!")
 })
 
